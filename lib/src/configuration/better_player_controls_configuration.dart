@@ -34,20 +34,14 @@ class BetterPlayerControlsConfiguration {
   ///Icon of unmute
   final IconData unMuteIcon;
 
-  ///Icon of fullscreen mode enable
-  final IconData fullscreenEnableIcon;
-
-  ///Icon of fullscreen mode disable
-  final IconData fullscreenDisableIcon;
+  ///Icon of custom button
+  final IconData customButtonIcon;
 
   ///Cupertino only icon, icon of skip
   final IconData skipBackIcon;
 
   ///Cupertino only icon, icon of forward
   final IconData skipForwardIcon;
-
-  ///Flag used to enable/disable fullscreen
-  final bool enableFullscreen;
 
   ///Flag used to enable/disable mute
   final bool enableMute;
@@ -66,6 +60,9 @@ class BetterPlayerControlsConfiguration {
 
   ///Flag used to enable skip forward and skip back
   final bool enableSkips;
+
+  ///Flag used to enable custom button
+  final bool enableCustomButton;
 
   ///Progress bar played color
   final Color progressBarPlayedColor;
@@ -176,11 +173,8 @@ class BetterPlayerControlsConfiguration {
       this.pauseIcon = Icons.pause,
       this.muteIcon = Icons.volume_up,
       this.unMuteIcon = Icons.volume_mute,
-      this.fullscreenEnableIcon = Icons.fullscreen,
-      this.fullscreenDisableIcon = Icons.fullscreen_exit,
       this.skipBackIcon = Icons.fast_rewind,
       this.skipForwardIcon = Icons.fast_forward,
-      this.enableFullscreen = true,
       this.enableMute = true,
       this.enableProgressText = false,
       this.enableProgressBar = true,
@@ -219,7 +213,9 @@ class BetterPlayerControlsConfiguration {
       this.loadingWidget,
       this.backgroundColor = Colors.black,
       this.overflowModalColor = Colors.white,
-      this.overflowModalTextColor = Colors.black});
+      this.overflowModalTextColor = Colors.black,
+      this.enableCustomButton = false,
+      this.customButtonIcon = Icons.close,});
 
   factory BetterPlayerControlsConfiguration.white() {
     return const BetterPlayerControlsConfiguration(
@@ -234,8 +230,7 @@ class BetterPlayerControlsConfiguration {
 
   factory BetterPlayerControlsConfiguration.cupertino() {
     return const BetterPlayerControlsConfiguration(
-        fullscreenEnableIcon: CupertinoIcons.fullscreen,
-        fullscreenDisableIcon: CupertinoIcons.fullscreen_exit,
+        customButtonIcon: Icons.close,
         playIcon: CupertinoIcons.play_arrow_solid,
         pauseIcon: CupertinoIcons.pause_solid,
         enableProgressText: true);

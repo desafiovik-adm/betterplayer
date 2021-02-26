@@ -295,8 +295,8 @@ class _BetterPlayerMaterialControlsState
               _buildMuteButton(_controller)
             else
               const SizedBox(),
-            if (_controlsConfiguration.enableFullscreen)
-              _buildExpandButton()
+            if (_controlsConfiguration.enableCustomButton)
+              _buildCustomButton()
             else
               const SizedBox(),
           ],
@@ -316,9 +316,9 @@ class _BetterPlayerMaterialControlsState
     );
   }
 
-  Widget _buildExpandButton() {
+  Widget _buildCustomButton() {
     return BetterPlayerMaterialClickableWidget(
-      onTap: _onExpandCollapse,
+      onTap: _onCustomButtonPressed,
       child: AnimatedOpacity(
         opacity: _hideStuff ? 0.0 : 1.0,
         duration: _controlsConfiguration.controlsHideTime,
@@ -328,9 +328,7 @@ class _BetterPlayerMaterialControlsState
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Center(
             child: Icon(
-              _betterPlayerController.isFullScreen
-                  ? _controlsConfiguration.fullscreenDisableIcon
-                  : _controlsConfiguration.fullscreenEnableIcon,
+              _controlsConfiguration.customButtonIcon,
               color: _controlsConfiguration.iconsColor,
             ),
           ),
@@ -602,17 +600,11 @@ class _BetterPlayerMaterialControlsState
     });
   }
 
-  void _onExpandCollapse() {
+  void _onCustomButtonPressed() {
     setState(() {
       _hideStuff = true;
 
-      _betterPlayerController.toggleFullScreen();
-      _showAfterExpandCollapseTimer =
-          Timer(_controlsConfiguration.controlsHideTime, () {
-        setState(() {
-          cancelAndRestartTimer();
-        });
-      });
+      _betterPlayerController.pressCustomButton();
     });
   }
 

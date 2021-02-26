@@ -232,14 +232,14 @@ class _BetterPlayerCupertinoControlsState
     );
   }
 
-  GestureDetector _buildExpandButton(
+  GestureDetector _buildCustomButton(
     Color backgroundColor,
     Color iconColor,
     double barHeight,
     double buttonPadding,
   ) {
     return GestureDetector(
-      onTap: _onExpandCollapse,
+      onTap: _onCustomButtonPressed,
       child: AnimatedOpacity(
         opacity: _hideStuff ? 0.0 : 1.0,
         duration: _controlsConfiguration.controlsHideTime,
@@ -256,9 +256,7 @@ class _BetterPlayerCupertinoControlsState
               color: backgroundColor,
               child: Center(
                 child: Icon(
-                  _betterPlayerController.isFullScreen
-                      ? _controlsConfiguration.fullscreenDisableIcon
-                      : _controlsConfiguration.fullscreenEnableIcon,
+                  _controlsConfiguration.customButtonIcon,
                   color: iconColor,
                 ),
               ),
@@ -484,8 +482,8 @@ class _BetterPlayerCupertinoControlsState
       ),
       child: Row(
         children: <Widget>[
-          if (_controlsConfiguration.enableFullscreen)
-            _buildExpandButton(
+          if (_controlsConfiguration.enableCustomButton)
+            _buildCustomButton(
                 backgroundColor, iconColor, barHeight, buttonPadding)
           else
             const SizedBox(),
@@ -587,16 +585,11 @@ class _BetterPlayerCupertinoControlsState
     });
   }
 
-  void _onExpandCollapse() {
+  void _onCustomButtonPressed() {
     setState(() {
       _hideStuff = true;
 
-      _betterPlayerController.toggleFullScreen();
-      _expandCollapseTimer = Timer(_controlsConfiguration.controlsHideTime, () {
-        setState(() {
-          cancelAndRestartTimer();
-        });
-      });
+      _betterPlayerController.pressCustomButton();
     });
   }
 
