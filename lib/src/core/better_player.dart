@@ -62,6 +62,8 @@ class _BetterPlayerState extends State<BetterPlayer>
 
   bool _isFullScreen = false;
 
+  bool _isCustomButtonPressed = false;
+
   ///State of navigator on widget created
   NavigatorState _navigatorState;
 
@@ -91,7 +93,8 @@ class _BetterPlayerState extends State<BetterPlayer>
 
   Future<void> _setup() async {
     widget.controller.addListener(onFullScreenChanged);
-    var locale = const Locale("en", "US");
+    widget.controller.addListener(onCustomButtonPressed);
+    Locale locale = const Locale("en", "US");
     if (mounted) {
       final contextLocale = Localizations.localeOf(context);
       if (contextLocale != null) {
@@ -117,6 +120,7 @@ class _BetterPlayerState extends State<BetterPlayer>
 
     WidgetsBinding.instance.removeObserver(this);
     widget.controller.removeListener(onFullScreenChanged);
+    widget.controller.removeListener(onCustomButtonPressed);
     widget.controller.dispose();
     super.dispose();
   }
@@ -125,6 +129,7 @@ class _BetterPlayerState extends State<BetterPlayer>
   void didUpdateWidget(BetterPlayer oldWidget) {
     if (oldWidget.controller != widget.controller) {
       widget.controller.addListener(onFullScreenChanged);
+      widget.controller.addListener(onCustomButtonPressed);
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -146,6 +151,15 @@ class _BetterPlayerState extends State<BetterPlayer>
 
     if (controller.cancelFullScreenDismiss) {
       controller.cancelFullScreenDismiss = false;
+    }
+  }
+
+  // ignore: avoid_void_async
+  Future<void> onCustomButtonPressed() async {
+    final controller = widget.controller;
+    if (controller.isCustomButtonPressed != _isCustomButtonPressed) {
+      _isCustomButtonPressed = controller.isCustomButtonPressed;
+      controller.postEvent(BetterPlayerEvent(BetterPlayerEventType.customButtonPressed));
     }
   }
 

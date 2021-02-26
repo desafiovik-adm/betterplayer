@@ -21,7 +21,6 @@ class _ControlsConfigurationPageState extends State<ControlsConfigurationPage> {
       progressBarPlayedColor: Colors.grey,
       progressBarHandleColor: Colors.lightGreen,
       enableSkips: false,
-      enableFullscreen: false,
       controlBarHeight: 60,
       loadingColor: Colors.red,
       overflowModalColor: Colors.indigo,

@@ -66,6 +66,12 @@ class BetterPlayerController extends ChangeNotifier {
   ///Flag used to store full screen mode state.
   bool get isFullScreen => _isFullScreen;
 
+  ///Flag used to store custom button pressed state.
+  bool _isCustomButtonPressed = false;
+
+  ///Flag used to store custom button pressed state.
+  bool get isCustomButtonPressed => _isCustomButtonPressed;
+
   ///Time when last progress event was sent
   int _lastPositionSelection = 0;
 
@@ -490,6 +496,12 @@ class BetterPlayerController extends ChangeNotifier {
   ///Enables/disables full screen mode based on current fullscreen state.
   void toggleFullScreen() {
     _isFullScreen = !_isFullScreen;
+    notifyListeners();
+  }
+
+  ///Trigger the custom button pressed event.
+  void pressCustomButton() {
+    _isCustomButtonPressed = !_isCustomButtonPressed;
     notifyListeners();
   }
 
